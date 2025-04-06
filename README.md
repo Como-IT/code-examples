@@ -1,2 +1,2 @@
 # code-examples
-This repo contains example code and projects
+This repo contains example code and projects.
