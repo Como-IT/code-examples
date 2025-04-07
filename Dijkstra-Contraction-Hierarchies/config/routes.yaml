@@ -1,0 +1,15 @@
+index:
+    path: /
+    controller: App\Jacekzet\DijkstraBundle\Controller\DefaultController::index
+error_page:
+    path: /error-page
+    controller: App\Controller\DefaultController::error
+api_call_dijkstra_php_interfaces_and_objects:
+    path: /api/dijkstra/php-interfaces-and-objects
+    controller: App\Jacekzet\DijkstraBundle\Controller\DijkstraController::phpInterfacesAndObjects
+api_call_dijkstra_php_arrays:
+    path: /api/dijkstra/php-arrays
+    controller: App\Jacekzet\DijkstraBundle\Controller\DijkstraController::phpArrays
+api_call_dijkstra_mysql_procedure:
+    path: /api/dijkstra/mysql-procedure
+    controller: App\Jacekzet\DijkstraBundle\Controller\DijkstraController::mysqlProcedure

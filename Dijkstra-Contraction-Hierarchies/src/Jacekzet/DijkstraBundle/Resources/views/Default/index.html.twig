@@ -1,0 +1,109 @@
+{% extends "base.html.twig" %}
+
+{% block body %}
+    <h1>Dijkstra &amp; Contraction Hierarchies</h1>
+    <h2>Data</h2>
+    <h3>Nodes</h3>
+    {{ nodes|json_encode }}
+    <h3>Edges</h3>
+    {{ edges|json_encode }}
+    <h2>Actions and Results</h2>
+    <div class="actions-and-results">
+        <div>
+            <div>
+                <button onclick="callDijkstraPhpInterfacesAndObjects('id-callDijkstraPhpInterfacesAndObjects')">Call
+                    Dijkstra : PHP Interfaces and Objects
+                </button>
+            </div>
+            <div id="id-callDijkstraPhpInterfacesAndObjects">
+            </div>
+        </div>
+        <div>
+            <div>
+                <button onclick="callDijkstraPhpArrays('id-callDijkstraPhpArrays')">Call
+                    Dijkstra : PHP Arrays
+                </button>
+            </div>
+            <div id="id-callDijkstraPhpArrays">
+            </div>
+        </div>
+        <div>
+            <div>
+                <button onclick="callDijkstraMySQLProcedure('id-callDijkstraMySQLProcedure')">Call
+                    Dijkstra : MySQL Procedure
+                </button>
+            </div>
+            <div id="id-callDijkstraMySQLProcedure">
+            </div>
+        </div>
+        <div>
+            <div>
+                <button onclick="callWithError('id-callWithError')">Call
+                    with error
+                </button>
+            </div>
+            <div id="id-callWithError">
+            </div>
+        </div>
+    </div>
+{% endblock %}
+
+{% block footer %}
+    <div class="container">
+        <p>
+            Data source: <a href="https://jlazarsfeld.github.io/ch.150.project/">https://jlazarsfeld.github.io/ch.150.project/</a>
+        </p>
+        <p>
+            Wiki: <a href="https://en.wikipedia.org/wiki/Dijkstra%27s_algorithm">https://en.wikipedia.org/wiki/Dijkstra%27s_algorithm</a>
+        </p>
+    </div>
+{% endblock %}
+
+{% block javascripts %}
+    {{ parent() }}
+    <script type="application/javascript">
+        const processResponse = async (responseElementId, response) => {
+            const element = document.getElementById(responseElementId);
+            const text = [];
+            if (response.ok) {
+                text.push(JSON.stringify(await response.json()));
+            } else {
+                text.push('Unable to load response ' + response.status + ' ' + response.statusText);
+            }
+            element.innerHTML = text.join('<br>');
+        };
+        const callDijkstraPhpInterfacesAndObjects = async (responseElementId) => processResponse(responseElementId, await fetch('/api/dijkstra/php-interfaces-and-objects'));
+        const callDijkstraPhpArrays = async (responseElementId) => processResponse(responseElementId, await fetch('/api/dijkstra/php-arrays'));
+        const callDijkstraMySQLProcedure = async (responseElementId) => processResponse(responseElementId, await fetch('/api/dijkstra/mysql-procedure'));
+        const callWithError = async (responseElementId) => processResponse(responseElementId, await fetch('/api/error'));
+    </script>
+{% endblock %}
+
+{% block stylesheets %}
+    {{ parent() }}
+    <style>
+        .actions-and-results {
+            width: 100%;
+            display: flex;
+            flex-direction: column;
+            row-gap: 16px;
+        }
+
+        .actions-and-results > div {
+            width: 100%;
+            display: flex;
+            flex-direction: row;
+            column-gap: 16px;
+        }
+
+        .actions-and-results > div > div {
+            flex: 1 1 50%;
+        }
+
+        .actions-and-results > div :nth-child(1) {
+        }
+
+        .actions-and-results > div :nth-child(2) {
+        }
+    </style>
+{% endblock %}
